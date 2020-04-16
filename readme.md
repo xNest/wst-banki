@@ -18,7 +18,7 @@ W pliku nagłówkowymDefinicje.h zdefiniowano nazwy dwóch istotnych dla projekt
 
 Oprócz tego zdefiniowane są tu dwie stałe numeryczne. Użycie nazwy zamiast wartości liczbowej powinno poprawić czytelność programu.
 
-Inkluzja Definicje.h uwalnia pozostałe klasy projektu od inkluzji \&lt;string\&gt; i\&lt;iostream\&gt;.
+Inkluzja Definicje.h uwalnia pozostałe klasy projektu od inkluzji \<string> i \<iostream>.
 
 ```cpp
 #include <string>
