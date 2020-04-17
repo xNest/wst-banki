@@ -12,6 +12,8 @@ NUMER_RACHUNKU Bank::Otworz(string klient, string haslo)
 {
 	NUMER_RACHUNKU accountNumber = to_string(
 		atoi(this->numer_poczatkowy_rachunkow.c_str()) + this->kolejny_numer_rachunku);
+	accountNumber = string(16 - accountNumber.length(), '0') + accountNumber;
+	
 	Konto* konto = new Konto(klient, haslo, accountNumber);
 
 	this->konta.push_back(konto);
