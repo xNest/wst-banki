@@ -2,14 +2,7 @@
 
 Rachunek::Rachunek()
 {
-	std::string accountNumber;
-
-	for (int i = 0; i < 16; ++i)
-	{
-		accountNumber += std::to_string(rand() % 10);
-	}
-
-	this->numer = accountNumber;
+	this->numer = "";
 	this->stan = 0.00;
 }
 

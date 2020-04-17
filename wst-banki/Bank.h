@@ -24,8 +24,7 @@ public:
 	bool Logout(NUMER_RACHUNKU numer, int id);
 	bool Wplac(NUMER_RACHUNKU numer, int id, double kwota); // Wplac kwote na rachunek klienta
 	bool Wyplac(NUMER_RACHUNKU numer, int id, double kwota); // Pobierz kwote z rachunku klienta
-	bool Przelej(NUMER_RACHUNKU numer, int id, double kwota, Bank* bank, NUMER_RACHUNKU obcy_rachunek);
-	// Przelej kwote z rachunku klienta na obcy rachunek
+	bool Przelej(NUMER_RACHUNKU numer, int id, double kwota, Bank* bank, NUMER_RACHUNKU obcy_rachunek); // Przelej kwote z rachunku klienta na obcy rachunek
 	double Stan(NUMER_RACHUNKU numer, int id); // Zwroc stan rachunku
 	NUMER_ROZLICZENIOWY_BANKU Numer(); // Zwroc numer rozliczeniowy banku
 };

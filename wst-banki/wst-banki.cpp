@@ -1,11 +1,35 @@
 ﻿// wst-banki.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 
-#include <iostream>
+#include "Siec.h"
+
+#define MBANK "11402004"
+#define ING "10501272"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Siec* siec = new Siec();
+
+	siec->Rejestruj(MBANK, "0000000000000000");
+	siec->Rejestruj(ING, "0000000000000000");
+
+	Bank* mbank = siec->Znajdz(MBANK);
+	Bank* ing = siec->Znajdz(ING);
+
+	NUMER_RACHUNKU klientA = mbank->Otworz("klientA", "hasloA");
+	NUMER_RACHUNKU klientB = ing->Otworz("klientB", "hasloB");
+
+	int klientASession = mbank->Login("klientA", "hasloA", klientA);
+	int klientBSession = ing->Login("klientB", "hasloB",klientB);
+
+	mbank->Wplac(klientA, klientASession, 100.00);
+	mbank->Przelej(klientA, klientASession, 30, ing, klientB);
+
+	ing->Wyplac(klientB, klientBSession, 10.00);
+
+	std::cout << "Stan konta A: " << mbank->Stan(klientA,klientASession) << "\n";
+	std::cout << "Stan konta B: " << ing->Stan(klientB, klientBSession) << "\n";
+
 }
 
 // Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
