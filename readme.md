@@ -1,284 +1,197 @@
 **Banki - wersja podstawowa**
 
-1. Bardzo krótko o programowaniu obiektowym
+1. Bardzo krÃ³tko o programowaniu obiektowym
 
-Programowanie obiektowe polega na tworzeniu programów, które sk³adaj¹ siê z obiektów. Obiekty charakteryzuj¹ siê abstrakcj¹ i hermetyzacj¹. Abstrakcja polega na modelowaniu najistotniejszych cech jakiegoœ rzeczywistego pojêcia. Na przyk³ad programowanie obiektowego mo¿e modelowaæ arytmetykê liczb zespolonych albo us³ugi bankowe. Hermetyzacja polega na ukryciu danych i funkcji prywatnych oraz udostepnieniu danych i funkcji publicznych. Abstrakcja i hermetyzacja s¹ rozwiniêciem koncepcji abstrakcyjnych typów danych (typów tworzonych przez programistê) i modularyzacji programów. W programowaniu obiektowym d¹¿y siê tak¿e do wielokrotnego wykorzystania raz napisanego kodu. Jedna z dróg prowadz¹cych do tego celu jest u¿ycie programów generycznych, tzn. adaptowalnych do ró¿nych typów danych.
+Programowanie obiektowe polega na tworzeniu programÃ³w, ktÃ³re skÅ‚adajÄ… siÄ™ z obiektÃ³w. Obiekty charakteryzujÄ… siÄ™ abstrakcjÄ… i hermetyzacjÄ…. Abstrakcja polega na modelowaniu najistotniejszych cech jakiegoÅ› rzeczywistego pojÄ™cia. Na przykÅ‚ad programowanie obiektowego moÅ¼e modelowaÄ‡ arytmetykÄ™ liczb zespolonych albo usÅ‚ugi bankowe. Hermetyzacja polega na ukryciu danych i funkcji prywatnych oraz udostepnieniu danych i funkcji publicznych. Abstrakcja i hermetyzacja sÄ… rozwiniÄ™ciem koncepcji abstrakcyjnych typÃ³w danych (typÃ³w tworzonych przez programistÄ™) i modularyzacji programÃ³w. W programowaniu obiektowym dÄ…Å¼y siÄ™ takÅ¼e do wielokrotnego wykorzystania raz napisanego kodu. Jedna z drÃ³g prowadzÄ…cych do tego celu jest uÅ¼ycie programÃ³w generycznych, tzn. adaptowalnych do rÃ³Å¼nych typÃ³w danych.
 
-Podstawow¹ konstrukcj¹ programowania obiektowego w C++ jest klasa. Jest to rozszerzenie znanej z jêzyka C konstrukcji struct. Klasa zawiera dane i metody prywatne oraz dane i metody publiczne (hermetyzacja). Klasa mo¿e zawieraæ lub nawet wywodziæ siê z prostszych klas (dziedziczenie). Klasa rozró¿nia deklaracje (nag³ówki \*.h) i definicje (implementacje \*.cpp). _Klasa_ dla _obiektów_ jest tym, czym jest (abstrakcyjny) _typ danych_ dla _zmiennych_ w tradycyjnym programowaniu. C++ oferuje równie¿ kolekcje generyczne, takie jak wektor, które mog¹ przechowywaæ dane ró¿nych typów.
+PodstawowÄ… konstrukcjÄ… programowania obiektowego w C++ jest klasa. Jest to rozszerzenie znanej z jÄ™zyka C konstrukcji struct. Klasa zawiera dane i metody prywatne oraz dane i metody publiczne (hermetyzacja). Klasa moÅ¼e zawieraÄ‡ lub nawet wywodziÄ‡ siÄ™ z prostszych klas (dziedziczenie). Klasa rozrÃ³Å¼nia deklaracje (nagÅ‚Ã³wki \*.h) i definicje (implementacje \*.cpp). _Klasa_ dla _obiektÃ³w_ jest tym, czym jest (abstrakcyjny) _typ danych_ dla _zmiennych_ w tradycyjnym programowaniu. C++ oferuje rÃ³wnieÅ¼ kolekcje generyczne, takie jak wektor, ktÃ³re mogÄ… przechowywaÄ‡ dane rÃ³Å¼nych typÃ³w.
 
-Program Bankirealizuje dwa g³ówne postulaty programowania obiektowego: abstrakcjê i hermetyzacjê. Program sk³ada siê z (aktywnych) obiektów typu Klient, które korzystaj¹ z us³ug (pasywnych) obiektów typu Bank. Klasa Bank modeluje podstawowe us³ugi bankowe. Do implementacji sieci banków i listy kont bankowych wykorzystane s¹ klasy generyczne vector i map.
+Program Bankirealizuje dwa gÅ‚Ã³wne postulaty programowania obiektowego: abstrakcjÄ™ i hermetyzacjÄ™. Program skÅ‚ada siÄ™ z (aktywnych) obiektÃ³w typu Klient, ktÃ³re korzystajÄ… z usÅ‚ug (pasywnych) obiektÃ³w typu Bank. Klasa Bank modeluje podstawowe usÅ‚ugi bankowe. Do implementacji sieci bankÃ³w i listy kont bankowych wykorzystane sÄ… klasy generyczne vector i map.
 
 1. Program Banki
 
-Program Banki sk³ada siê z trzech czêœci: us³ug bankowych zrealizowanych przez hierarchiê klas Rachunek \&lt; Konto \&lt; Bank \&lt; Siec, z programu g³ównego, który korzysta z tych us³ug oraz z klasy poœredniczej Siec, która u³atwia programowi g³ównemu korzystanie z us³ug i ukrywa przed nim pewne szczegó³y dostêpu do kont.
+Program Banki skÅ‚ada siÄ™ z trzech czÄ™Å›ci: usÅ‚ug bankowych zrealizowanych przez hierarchiÄ™ klas Rachunek \&lt; Konto \&lt; Bank \&lt; Siec, z programu gÅ‚Ã³wnego, ktÃ³ry korzysta z tych usÅ‚ug oraz z klasy poÅ›redniczej Siec, ktÃ³ra uÅ‚atwia programowi gÅ‚Ã³wnemu korzystanie z usÅ‚ug i ukrywa przed nim pewne szczegÃ³Å‚y dostÄ™pu do kont.
 
   1. Definicje
 
-W pliku nag³ówkowymDefinicje.h zdefiniowano nazwy dwóch istotnych dla projektu zmiennych typustring: numeru rozliczeniowego banku (w przypadku polskich banków 8 znaków) i numeru rachunku (16 znaków). Definicje te nie s¹ konieczne, mog¹ jednak u³atwiæ przysz³e rozszerzenia programu takie jak zast¹pienie zwyk³ego numeru rachunku miêdzynarodowym numerem rachunku bankowego.
+W pliku nagÅ‚Ã³wkowymDefinicje.h zdefiniowano nazwy dwÃ³ch istotnych dla projektu zmiennych typustring: numeru rozliczeniowego banku (w przypadku polskich bankÃ³w 8 znakÃ³w) i numeru rachunku (16 znakÃ³w). Definicje te nie sÄ… konieczne, mogÄ… jednak uÅ‚atwiÄ‡ przyszÅ‚e rozszerzenia programu takie jak zastÄ…pienie zwykÅ‚ego numeru rachunku miÄ™dzynarodowym numerem rachunku bankowego.
 
-Oprócz tego zdefiniowane s¹ tu dwie sta³e numeryczne. U¿ycie nazwy zamiast wartoœci liczbowej powinno poprawiæ czytelnoœæ programu.
+OprÃ³cz tego zdefiniowane sÄ… tu dwie staÅ‚e numeryczne. UÅ¼ycie nazwy zamiast wartoÅ›ci liczbowej powinno poprawiÄ‡ czytelnoÅ›Ä‡ programu.
 
-Inkluzja Definicje.h uwalnia pozosta³e klasy projektu od inkluzji \&lt;string\&gt; i\&lt;iostream\&gt;.
+Inkluzja Definicje.h uwalnia pozostaÅ‚e klasy projektu od inkluzji \<string> i \<iostream>.
 
 ```cpp
+#include <string>
+#include <iostream>
 
-#include\&lt;string\&gt;
-
-#include\&lt;iostream\&gt;
-
-typedefstringNUMER\_ROZLICZENIOWY\_BANKU; // numer rozliczeniowy banku (8 znakow)
-
-typedefstringNUMER\_RACHUNKU; // numer rachunku (16 znakow)
-
-constint WPLATA\_MOZLIWA = 0;
-
-constint LOGIN\_NIEMOZLIWY = -1;
-
+typedef string NUMER_ROZLICZENIOWY_BANKU; // numer rozliczeniowy banku (8 znakow)
+typedef string NUMER_RACHUNKU; // numer rachunku (16 znakow)
+const int WPLATA_MOZLIWA = 0;
+const int LOGIN_NIEMOZLIWY = -1;
 ```
 
   1. Klasa Rachunek
 
-Klasa Rachunek jest prostym kontenerem, którego prywatne dane to numer rachunku i aktualny stan rachunku. Ka¿dy rachunek ma swój numer (parametr konstruktora). Publiczne metody umo¿liwiaj¹ wp³atê i wyp³atê. Wp³ata jest zawsze mo¿liwa. Wyp³ata, która prowadzi do ujemnego stanu konta, jest odrzucana. Metody publiczne Numer()i Stan() informuj¹ odpowiednio o numerze i o aktualnym stanie rachunku.
+Klasa Rachunek jest prostym kontenerem, ktÃ³rego prywatne dane to numer rachunku i aktualny stan rachunku. KaÅ¼dy rachunek ma swÃ³j numer (parametr konstruktora). Publiczne metody umoÅ¼liwiajÄ… wpÅ‚atÄ™ i wypÅ‚atÄ™. WpÅ‚ata jest zawsze moÅ¼liwa. WypÅ‚ata, ktÃ³ra prowadzi do ujemnego stanu konta, jest odrzucana. Metody publiczne Numer()i Stan() informujÄ… odpowiednio o numerze i o aktualnym stanie rachunku.
 
 ```cpp
+#include "Definicje.h"
 
-#include&quot;Definicje.h&quot;
-
-classRachunek
-
+class Rachunek
 {
-
 private:
-
-NUMER\_RACHUNKU numer; // numer rachunku
-
-double stan; // aktualny stan rachunku
-
+  NUMER_RACHUNKU numer; // numer rachunku
+  double stan; // aktualny stan rachunku
 public:
-
-Rachunek(); // Standardowy konstruktor bez parametrow
-
-Rachunek(NUMER\_RACHUNKUnumer); // Konstruktor
-
-bool Wplata(doublekwota); // Wplac kwote na rachunek
-
-bool Wyplata(doublekwota); // Pobierz kwote z rachunku
-
-NUMER\_RACHUNKU Numer(); // Pokaz numer rachunku
-
-double Stan(); // Pokaz stan rachunku
-
+  Rachunek(); // Standardowy konstruktor bez parametrow
+  Rachunek(NUMER_RACHUNKU numer); // Konstruktor
+  bool Wplata(double kwota); // Wplac kwote na rachunek
+  bool Wyplata(double kwota); // Pobierz kwote z rachunku
+  NUMER_RACHUNKU Numer(); // Pokaz numer rachunku
+  double Stan(); // Pokaz stan rachunku
 };
-
 ```
 
   1. Klasa Konto
-Konto bankowe to rachunek klienta (jeden klient ma jeden rachunek). Klasa Konto zawiera klasê Rachunek, identyfikator i has³o klienta oraz identyfikator dostêpu do rachunku. Parametrami konstruktora s¹ identyfikator i has³o klienta oraz numer rachunku. Bezpieczny dostêp do rachunku gwarantuje metoda Login(), która sprawdza has³o klienta i zapamiêtuje identyfikator dostêpu. Klasa Kontopowtarza metody klasy wewnêtrznej Rachunek „zapakowane&quot; w kod sprawdzaj¹cy identyfikator dostêpu. Metody Numer(numer) i Klient(klient) s¹ funkcjami pomocnymi w znajdywaniu kont wed³ug ró¿nych kryteriów (patrz klasa Bank).
+Konto bankowe to rachunek klienta (jeden klient ma jeden rachunek). Klasa Konto zawiera klasÄ™ Rachunek, identyfikator i hasÅ‚o klienta oraz identyfikator dostÄ™pu do rachunku. Parametrami konstruktora sÄ… identyfikator i hasÅ‚o klienta oraz numer rachunku. Bezpieczny dostÄ™p do rachunku gwarantuje metoda Login(), ktÃ³ra sprawdza hasÅ‚o klienta i zapamiÄ™tuje identyfikator dostÄ™pu. Klasa Kontopowtarza metody klasy wewnÄ™trznej Rachunek â€žzapakowane&quot; w kod sprawdzajÄ…cy identyfikator dostÄ™pu. Metody Numer(numer) i Klient(klient) sÄ… funkcjami pomocnymi w znajdywaniu kont wedÅ‚ug rÃ³Å¼nych kryteriÃ³w (patrz klasa Bank).
 
 ```cpp
+#include "Definicje.h"
+#include "Rachunek.h"
 
-#include&quot;Definicje.h&quot;
+using namespace std;
 
-#include&quot;Rachunek.h&quot;
-
-usingnamespace std;
-
-classKonto
-
+class Konto
 {
-
 private:
-
-Rachunek rachunek; // rachunek (wywoluje standardowy konstruktor)
-
-string klient; // identyfikator klienta
-
-string haslo; // haslo klienta
-
-int id = LOGIN\_NIEMOZLIWY; // identyfikator dostepu do konta
+  Rachunek rachunek; // rachunek (wywoluje standardowy konstruktor)
+  string klient; // identyfikator klienta
+  string haslo; // haslo klienta
+  int id = LOGIN_NIEMOZLIWY; // identyfikator dostepu do konta 
 
 public:
-
-Konto(stringklient, stringhaslo, NUMER\_RACHUNKUnumer); // Konstruktor
-
-int Login(stringklient, stringhaslo, intid); // Bezpieczny dostep do konta
-
-bool Logout(intid); // Koniec dostepu do konta
-
-bool Wplata(intid, doublekwota); // Wplac na konto
-
-bool Wyplata(intid, doublekwota); // Wyplac z konta
-
-double Stan(intid); // Zwroc stan konta
-
-bool Numer(NUMER\_RACHUNKUnumer); // Porownaj numer rachunku
-
-bool Klient(stringklient); // Porownaj identyfikator klienta
-
+  Konto(string klient, string haslo, NUMER_RACHUNKU numer); // Konstruktor 
+  int Login(string klient, string haslo, int id); // Bezpieczny dostep do konta
+  bool Logout(int id); // Koniec dostepu do konta
+  bool Wplata(int id, double kwota); // Wplac na konto
+  bool Wyplata(int id, double kwota); // Wyplac z konta
+  double Stan(int id); // Zwroc stan konta
+  bool Numer(NUMER_RACHUNKU numer); // Porownaj numer rachunku
+  bool Klient(string klient); // Porownaj identyfikator klienta
 };
-
 ```
 
   1. Klasa Bank
 
-Klasa Bank jest centraln¹ klas¹ projektu. Bank to kolekcja kont bankowych (dok³adnie: wektor wskaŸników na obiekt typu Konto). Wektor jest kolekcj¹ bez klucza, dlatego znalezienie konta o danym numerze wymaga liniowego przeszukania wektora (iteracji po indeksie w prywatnej metodzie Znajdz()).
+Klasa Bank jest centralnÄ… klasÄ… projektu. Bank to kolekcja kont bankowych (dokÅ‚adnie: wektor wskaÅºnikÃ³w na obiekt typu Konto). Wektor jest kolekcjÄ… bez klucza, dlatego znalezienie konta o danym numerze wymaga liniowego przeszukania wektora (iteracji po indeksie w prywatnej metodzie Znajdz()).
 
-Parametrami konstruktora s¹ numer rozliczeniowy banku i numer pocz¹tkowy rachunków w tym banku. Metoda Otworz() otwiera nowe konto dla klienta banku: generuje numer nowego konta, tworzy obiekt klasy Konto i zapisuje go do wektora kont. Parametrami tej metody s¹ identyfikator i has³o klienta.
+Parametrami konstruktora sÄ… numer rozliczeniowy banku i numer poczÄ…tkowy rachunkÃ³w w tym banku. Metoda Otworz() otwiera nowe konto dla klienta banku: generuje numer nowego konta, tworzy obiekt klasy Konto i zapisuje go do wektora kont. Parametrami tej metody sÄ… identyfikator i hasÅ‚o klienta.
 
-Metoda Login() wymaga, ¿eby konto o podanym identyfikatorze klienta i podanym haœle ju¿ istnia³o i - jeœli tak jest - generuje identyfikator bezpiecznego dostêpu.
+Metoda Login() wymaga, Å¼eby konto o podanym identyfikatorze klienta i podanym haÅ›le juÅ¼ istniaÅ‚o i - jeÅ›li tak jest - generuje identyfikator bezpiecznego dostÄ™pu.
 
-Klasa Bankpowtarza metody publiczne klasy wewnêtrznej Konto „zapakowane&quot; w kod znajduj¹cy konto w wektorze kont.
+Klasa Bankpowtarza metody publiczne klasy wewnÄ™trznej Konto â€žzapakowane&quot; w kod znajdujÄ…cy konto w wektorze kont.
 
-Metoda Przelej()wymaga bardziej szczegó³owego objaœnienia. Implementuje ona przelew kwoty z w³asnego konta na obce konto. Obce konto identyfikowane jest przez wskaŸnik na obcy bank i numer rachunku w tym banku. Przelew jest realizowany w dwóch krokach. Najpierw kwota jest wyp³acana z w³asnego konta (dostêp za pomoc¹ publicznej metody Wyplac()). Nastêpnie ta sama kwota jest wp³acana na obce konto za pomoc¹ prywatnej metody Wplac(). Bank Ÿród³owy staje siê tu klientem banku docelowego, nie posiadaj¹c ani identyfikatora klienta ani jego has³a. ¯eby rozwi¹zaæ problem dostêpu, dopuszcza siê wp³aty bez identyfikatora dostêpu. Metoda Wplac() jest wewn¹trz klasy Bank metod¹ prywatn¹, miêdzy obiektami typu Bank jest jednak widoczna (bank Ÿród³owy wo³a metodê Wplac() banku docelowego).
+Metoda Przelej()wymaga bardziej szczegÃ³Å‚owego objaÅ›nienia. Implementuje ona przelew kwoty z wÅ‚asnego konta na obce konto. Obce konto identyfikowane jest przez wskaÅºnik na obcy bank i numer rachunku w tym banku. Przelew jest realizowany w dwÃ³ch krokach. Najpierw kwota jest wypÅ‚acana z wÅ‚asnego konta (dostÄ™p za pomocÄ… publicznej metody Wyplac()). NastÄ™pnie ta sama kwota jest wpÅ‚acana na obce konto za pomocÄ… prywatnej metody Wplac(). Bank ÅºrÃ³dÅ‚owy staje siÄ™ tu klientem banku docelowego, nie posiadajÄ…c ani identyfikatora klienta ani jego hasÅ‚a. Å»eby rozwiÄ…zaÄ‡ problem dostÄ™pu, dopuszcza siÄ™ wpÅ‚aty bez identyfikatora dostÄ™pu. Metoda Wplac() jest wewnÄ…trz klasy Bank metodÄ… prywatnÄ…, miÄ™dzy obiektami typu Bank jest jednak widoczna (bank ÅºrÃ³dÅ‚owy woÅ‚a metodÄ™ Wplac() banku docelowego).
 
 ```cpp
+#include <vector>
+#include "Definicje.h"
+#include "Konto.h"
 
-#include\&lt;vector\&gt;
-
-#include&quot;Definicje.h&quot;
-
-#include&quot;Konto.h&quot;
-
-classBank
-
+class Bank
 {
-
 private:
+  NUMER_ROZLICZENIOWY_BANKU numer; // numer banku
+  NUMER_RACHUNKU numer_poczatkowy_rachunkow; // numer poczatkowy rachunkow w tym banku
+  int kolejny_numer_rachunku; // kolejny numer rachunku
+  int kolejny_numer_transakcji; // kolejny numer transakcji (id)
 
-NUMER\_ROZLICZENIOWY\_BANKU numer; // numer banku
+  vector<Konto*> konta; // kolekcja kont (wektor wskaznikow na konto)
 
-NUMER\_RACHUNKU numer\_poczatkowy\_rachunkow; // numer poczatkowy rachunkow w tym banku
-
-int kolejny\_numer\_rachunku; // kolejny numer rachunku
-
-int kolejny\_numer\_transakcji; // kolejny numer transakcji (id)
-
-vector\&lt;Konto\*\&gt; konta; // kolekcja kont (wektor wskaznikow na konto)
-
-bool Wplac(NUMER\_RACHUNKUnumer, doublekwota); // Wplac kwote na obcy rachunek
-
-Konto\* Znajdz(NUMER\_RACHUNKUnumer); // Znajdz konto z numerem rachunku
+  bool Wplac(NUMER_RACHUNKU numer, double kwota); // Wplac kwote na obcy rachunek  
+  Konto* Znajdz(NUMER_RACHUNKU numer); // Znajdz konto z numerem rachunku
 
 public:
+  Bank(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku, NUMER_RACHUNKU numer_pierwszego_rachunku); // Konstruktor
 
-Bank(NUMER\_ROZLICZENIOWY\_BANKUnumer\_rozliczeniowy\_banku, NUMER\_RACHUNKUnumer\_pierwszego\_rachunku); // Konstruktor
-
-NUMER\_RACHUNKU Otworz(stringklient, stringhaslo); // Otworz nowy rachunek
-
-int Login(stringklient, stringhaslo, NUMER\_RACHUNKUnumer); // Login klienta
-
-bool Logout(NUMER\_RACHUNKUnumer, intid);
-
-bool Wplac(NUMER\_RACHUNKUnumer, intid, doublekwota); // Wplac kwote na rachunek klienta
-
-bool Wyplac(NUMER\_RACHUNKUnumer, intid, doublekwota); // Pobierz kwote z rachunku klienta
-
-bool Przelej(NUMER\_RACHUNKUnumer, intid, doublekwota, Bank\* bank, NUMER\_RACHUNKUobcy\_rachunek); // Przelej kwote z rachunku klienta na obcy rachunek
-
-double Stan(NUMER\_RACHUNKUnumer, intid); // Zwroc stan rachunku
-
-NUMER\_ROZLICZENIOWY\_BANKU Numer(); // Zwroc numer rozliczeniowy banku
-
+  NUMER_RACHUNKU Otworz(string klient, string haslo); // Otworz nowy rachunek
+  int Login(string klient, string haslo, NUMER_RACHUNKU numer); // Login klienta
+  bool Logout(NUMER_RACHUNKU numer, int id);
+  bool Wplac(NUMER_RACHUNKU numer, int id, double kwota); // Wplac kwote na rachunek klienta
+  bool Wyplac(NUMER_RACHUNKU numer, int id, double kwota); // Pobierz kwote z rachunku klienta
+  bool Przelej(NUMER_RACHUNKU numer, int id, double kwota, Bank* bank, NUMER_RACHUNKU obcy_rachunek);
+  // Przelej kwote z rachunku klienta na obcy rachunek
+  double Stan(NUMER_RACHUNKU numer, int id); // Zwroc stan rachunku
+  NUMER_ROZLICZENIOWY_BANKU Numer(); // Zwroc numer rozliczeniowy banku
 };
-
 ```
-
 
   1. Klasa Siec
 
-Sieæ to kolekcja banków (dok³adnie: wektor wskaŸników na obiekt Bank). Metoda Rejestruj() tworzy nowy obiekt Bank i dodaje go do kolekcji banków. Metoda Znajdz() szuka w wektorze banku o podanym numerze rozliczeniowym.
+SieÄ‡ to kolekcja bankÃ³w (dokÅ‚adnie: wektor wskaÅºnikÃ³w na obiekt Bank). Metoda Rejestruj() tworzy nowy obiekt Bank i dodaje go do kolekcji bankÃ³w. Metoda Znajdz() szuka w wektorze banku o podanym numerze rozliczeniowym.
 
 ```cpp
 
-#include\&lt;vector\&gt;
+#include <vector>
+#include "Bank.h"
+#include "Definicje.h"
 
-#include&quot;Bank.h&quot;
-
-#include&quot;Definicje.h&quot;
-
-classSiec
-
+class Siec
 {
-
 private:
-
-vector\&lt;Bank\*\&gt; siec; // kolekcja bankow (wektor wskaznikow na Bank)
+  vector<Bank*> siec; // kolekcja bankow (wektor wskaznikow na Bank)
 
 public:
-
-Siec(); // Konstruktor
-
-void Rejestruj(NUMER\_ROZLICZENIOWY\_BANKUnumer\_rozliczeniowy\_banku, NUMER\_RACHUNKUnumer\_poczatkowy\_rachunkow); // Zarejestruj nowy bank w sieci bankow
-
-Bank\* Znajdz(NUMER\_ROZLICZENIOWY\_BANKUnumer\_rozliczeniowy\_banku); // Znajdz bank
-
+  Siec(); // Konstruktor
+  void Rejestruj(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku, NUMER_RACHUNKU numer_poczatkowy_rachunkow);
+  // Zarejestruj nowy bank w sieci bankow
+  Bank* Znajdz(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku); // Znajdz bank
 };
-
 ```
-
 
   1. Klasa Klient
 
-Klasa Klient korzysta z us³ug klas Siec oraz Bank (deleguje wykonanie us³ug bankowych do odpowiednich klas). Celem klasy jest udostepnienie mo¿liwie prostych w u¿yciu metod dla programu g³ównego. Klient jest definiowany przez identyfikator i has³o (parametry konstruktora). Klasa Klient ukrywa w czêœci prywatnej identyfikator dostêpu do konta.
+Klasa Klient korzysta z usÅ‚ug klas Siec oraz Bank (deleguje wykonanie usÅ‚ug bankowych do odpowiednich klas). Celem klasy jest udostepnienie moÅ¼liwie prostych w uÅ¼yciu metod dla programu gÅ‚Ã³wnego. Klient jest definiowany przez identyfikator i hasÅ‚o (parametry konstruktora). Klasa Klient ukrywa w czÄ™Å›ci prywatnej identyfikator dostÄ™pu do konta.
 
 ```cpp
-#include&quot;Definicje.h&quot;
+#include "Definicje.h"
+#include "Siec.h"
+#include "Bank.h"
 
-#include&quot;Siec.h&quot;
-
-#include&quot;Bank.h&quot;
-
-classKlient
-
+class Klient
 {
-
 private:
-
-Siec\* siec; // wskaznik na siec bankow
-
-Bank\* bank; // wskaznik na bank klienta
-
-string klient; // identyfikator klienta
-
-string haslo; // haslo klienta
-
-NUMER\_RACHUNKU numer; // numer rachunku klienta
-
-int id; // identyfikator transaksji
+  Siec* siec; // wskaznik na siec bankow
+  Bank* bank; // wskaznik na bank klienta
+  string klient; // identyfikator klienta
+  string haslo; // haslo klienta
+  NUMER_RACHUNKU numer; // numer rachunku klienta
+  int id; // identyfikator  transaksji
 
 public:
-
-Klient (stringklient, stringhaslo); // Konstruktor
-
-bool Otworz(Siec\* siec, NUMER\_ROZLICZENIOWY\_BANKUnumer); // Otworz nowy rachunek
-
-bool Login(); // Rozpocznij transakcje
-
-bool Logout(); // Rozpocznij transakcje
-
-bool Wplac(doublekwota); // Wplac kwote na wlasny rachunek
-
-bool Wyplac(doublekwota); // Pobierz kwote z wlasnego rachunku
-
-bool Przelej(doublekwota, NUMER\_ROZLICZENIOWY\_BANKUbank, NUMER\_RACHUNKUrachunek); // Przelej kwote z wlasnego rachunku na obcy rachunek
-
-double Stan(); // Zwroc aktualny stan rachunku
-
-NUMER\_RACHUNKU Numer();
-
+  Klient(string klient, string haslo); // Konstruktor
+  bool Otworz(Siec* siec, NUMER_ROZLICZENIOWY_BANKU numer); // Otworz nowy rachunek
+  bool Login(); // Rozpocznij transakcje
+  bool Logout(); // Rozpocznij transakcje
+  bool Wplac(double kwota); // Wplac kwote na wlasny rachunek
+  bool Wyplac(double kwota); // Pobierz kwote z wlasnego rachunku
+  bool Przelej(double kwota, NUMER_ROZLICZENIOWY_BANKU bank, NUMER_RACHUNKU rachunek);
+  // Przelej kwote z wlasnego rachunku na obcy rachunek 
+  double Stan(); // Zwroc aktualny stan rachunku
+  NUMER_RACHUNKU Numer();
 };
 ```
 
-  1. Program g³ówny main
+  1. Program gÅ‚Ã³wny main
 
-Program g³ówny sk³ada siê z obiektów typu Klient, które korzystaj¹ z us³ug obiektów typu Bank. W pierwszej czêœci programu obiekt klasy Siecpoœredniczy w tworzeniu obiektów typu Bank (metoda Rejestruj()). W drugiej czêœci tworzone s¹ obiekty typu Klient, które nastêpnie korzystaj¹ z us³ug bankowych.
- W programie g³ównym zrealizowano przyk³adowy prosty scenariusz:
+Program gÅ‚Ã³wny skÅ‚ada siÄ™ z obiektÃ³w typu Klient, ktÃ³re korzystajÄ… z usÅ‚ug obiektÃ³w typu Bank. W pierwszej czÄ™Å›ci programu obiekt klasy SiecpoÅ›redniczy w tworzeniu obiektÃ³w typu Bank (metoda Rejestruj()). W drugiej czÄ™Å›ci tworzone sÄ… obiekty typu Klient, ktÃ³re nastÄ™pnie korzystajÄ… z usÅ‚ug bankowych.
+ W programie gÅ‚Ã³wnym zrealizowano przykÅ‚adowy prosty scenariusz:
 
 - dwa banki: mBank i ING
-- dwóch klientów: A i B
+- dwÃ³ch klientÃ³w: A i B
 
-- A wp³aca kwotê na w³asne konto
-- A przekazuje kwotê na konto B
+- A wpÅ‚aca kwotÄ™ na wÅ‚asne konto
+- A przekazuje kwotÄ™ na konto B
 
-- B wyp³aca kwotê ze swojego konta
-- A i B informuj¹ o koñcowym stanie swoich kont.
+- B wypÅ‚aca kwotÄ™ ze swojego konta
+- A i B informujÄ… o koÅ„cowym stanie swoich kont.
