@@ -25,7 +25,7 @@ int Bank::Login(string klient, string haslo, NUMER_RACHUNKU numer)
 {
 	int sessionId = this->Znajdz(numer)->Login(klient, haslo, this->kolejny_numer_transakcji);
 
-	if (sessionId > 0)
+	if (sessionId != LOGIN_NIEMOZLIWY)
 	{
 		this->kolejny_numer_transakcji++;
 	}
@@ -53,7 +53,7 @@ bool Bank::Przelej(NUMER_RACHUNKU numer, int id, double kwota, Bank* bank, NUMER
 {
 	Konto* konto = this->Znajdz(numer);
 	Konto* konto2 = bank->Znajdz(obcy_rachunek);
-	if (konto && konto2 && konto->Wyplata(id, kwota) && konto2->Wplata(NULL, kwota))
+	if (konto->Wyplata(id, kwota) && konto2->Wplata(NULL, kwota))
 	{
 		return true;
 	}
