@@ -195,3 +195,6 @@ Program główny składa się z obiektów typu Klient, które korzystają z usł
 
 - B wypłaca kwotę ze swojego konta
 - A i B informują o końcowym stanie swoich kont.
+
+**Diagram UML**
+![Diagram UML](/UML/wst-banki.png)
