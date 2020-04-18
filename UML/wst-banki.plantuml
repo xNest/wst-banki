@@ -22,7 +22,7 @@ Class Legenda {
     +Publiczne pole
 
     -Prywatna metoda()
-    -Publiczna metoda()
+    +Publiczna metoda()
 }
 
 Class "<vector>" {
