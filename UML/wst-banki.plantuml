@@ -1,0 +1,117 @@
+@startuml
+
+Definicje <|-- Rachunek
+
+Definicje <|-- Konto
+Rachunek <|-- Konto
+
+"<vector>" <|-- Bank
+Definicje <|-- Bank
+Konto <|-- Bank
+
+"<vector>" <|-- Siec
+Bank <|-- Siec
+Definicje <|-- Siec
+
+Definicje <|-- Klient
+Siec <|-- Klient
+Bank <|-- Klient
+
+Class Legenda {
+    -Prwatne pole
+    +Publiczne pole
+
+    -Prywatna metoda()
+    +Publiczna metoda()
+}
+
+Class "<vector>" {
+    
+}
+
+Abstract Class Definicje {
+    <string>
+    <iostream>
+    string NUMER_ROZLICZENIOWY_BANKU
+    string NUMER_RACHUNKU
+    const int WPLATA_MOZLIWA
+    const int LOGIN_NIEMOZLIWY
+}
+
+Class Rachunek {
+    -NUMER_RACHUNKU numer
+    -double stan
+
+    +Rachunek()
+    +Rachunek(NUMER_RACHUNKU numer)
+    +bool Wplata(double kwota)
+    +bool Wyplata(double kwota)
+    +NUMER_RACHUNKU Numer()
+    +double Stan()
+}
+
+Class Konto {
+    -Rachunek rachunek
+    -string klient
+    -string haslo
+    -int id
+
+    +Konto(string klient, string haslo, NUMER_RACHUNKU numer)
+    +int Login(string klient, string haslo, int id)
+    +bool Logout(int id)
+    +bool Wplata(int id, double kwota)
+    +bool Wyplata(int id, double kwota)
+    +double Stan(int id)
+    +bool Numer(NUMER_RACHUNKU numer)
+    +bool Klient(string klient)
+}
+
+Class Bank {
+    -NUMER_ROZLICZENIOWY_BANKU numer
+    -NUMER_RACHUNKU numer_poczatkowy_rachunkow
+    -int kolejny_numer_rachunku
+    -int kolejny_numer_transakcji
+    -vector<Konto*> konta
+    -bool Wplac(NUMER_RACHUNKU numer, double kwota)
+    -Konto* Znajdz(NUMER_RACHUNKU numer)
+
+    +Bank(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku, NUMER_RACHUNKU numer_pierwszego_rachunku)
+    +NUMER_RACHUNKU Otworz(string klient, string haslo)
+    +int Login(string klient, string haslo, NUMER_RACHUNKU numer)
+    +bool Logout(NUMER_RACHUNKU numer, int id)
+    +bool Wplac(NUMER_RACHUNKU numer, int id, double kwota)
+    +bool Wyplac(NUMER_RACHUNKU numer, int id, double kwota)
+    +bool Przelej(NUMER_RACHUNKU numer, int id, double kwota, Bank* bank, NUMER_RACHUNKU obcy_rachunek)
+    +double Stan(NUMER_RACHUNKU numer, int id)
+    +NUMER_ROZLICZENIOWY_BANKU Numer()
+}
+
+Class Siec {
+    -vector<Bank*> siec
+
+    +Siec()
+    +void Rejestruj(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku, NUMER_RACHUNKU numer_poczatkowy_rachunkow)
+    +Bank* Znajdz(NUMER_ROZLICZENIOWY_BANKU numer_rozliczeniowy_banku)
+}
+
+Class Klient {
+    -Siec* siec
+    -Bank* bank
+    -string klient
+    -string haslo
+    -NUMER_RACHUNKU numer
+    -int id
+
+    +Klient(string klient, string haslo)
+    +bool Otworz(Siec* siec, NUMER_ROZLICZENIOWY_BANKU numer)
+    +bool Login()
+    +bool Logout()
+    +bool Wplac(double kwota)
+    +bool Wyplac(double kwota)
+    +bool Przelej(double kwota, NUMER_ROZLICZENIOWY_BANKU bank, NUMER_RACHUNKU rachunek)
+    +double Stan()
+    +NUMER_RACHUNKU Numer()
+}
+
+@enduml
+
